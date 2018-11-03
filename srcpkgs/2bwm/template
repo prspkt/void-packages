@@ -12,12 +12,14 @@ distfiles="https://github.com/venam/${pkgname}/archive/v${version}.tar.gz"
 checksum=5d071bdbe6d3b4b79b5462cc1b36afe357030fb70c7e64f88d9c7d541d648439
 
 pre_build() {
+	[ -e ${FILESDIR}/config.h ] && cp ${FILESDIR}/config.h config.h
 	sed -i 's|-Os ||g' Makefile
 	sed -i 's|^CFLAGS+=|override CFLAGS +=|g' Makefile
 	sed -i 's|^LDFLAGS+=|override LDFLAGS +=|g' Makefile
 	sed -i '/#include <stdlib.h>/i#define _GNU_SOURCE' 2bwm.c
 	sed -n 1,17p 2bwm.c >LICENSE
 }
+
 do_install() {
 	vbin 2bwm
 	vbin hidden
