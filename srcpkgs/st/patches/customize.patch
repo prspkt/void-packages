@@ -1,0 +1,96 @@
+--- config.def.h	2019-02-09 19:02:23.600646184 +0200
++++ config.def.h	2019-02-09 19:06:02.481685745 +0200
+@@ -5,7 +5,7 @@
+  *
+  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
+  */
+-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
++static char *font = "Terminus";
+ static int borderpx = 2;
+ 
+ /*
+@@ -49,7 +49,7 @@ static unsigned int actionfps = 30;
+  * blinking timeout (set to 0 to disable blinking) for the terminal blinking
+  * attribute.
+  */
+-static unsigned int blinktimeout = 800;
++static unsigned int blinktimeout = 0;
+ 
+ /*
+  * thickness of underline and bar cursors
+@@ -63,7 +63,7 @@ static unsigned int cursorthickness = 2;
+ static int bellvolume = 0;
+ 
+ /* default TERM value */
+-char *termname = "st-256color";
++char *termname = "xterm-256color";
+ 
+ /*
+  * spaces per tab
+@@ -85,30 +85,24 @@ unsigned int tabspaces = 8;
+ /* Terminal colors (16 first used in escape sequence) */
+ static const char *colorname[] = {
+ 	/* 8 normal colors */
+-	"black",
+-	"red3",
+-	"green3",
+-	"yellow3",
+-	"blue2",
+-	"magenta3",
+-	"cyan3",
+-	"gray90",
++	[0] = "#303030", /* black   */
++	[1] = "#7c7c7c", /* red     */
++	[2] = "#8e8e8e", /* green   */
++	[3] = "#a0a0a0", /* yellow  */
++	[4] = "#686868", /* blue    */
++	[5] = "#747474", /* magenta */
++	[6] = "#868686", /* cyan    */
++	[7] = "#b9b9b9", /* white   */
+ 
+ 	/* 8 bright colors */
+-	"gray50",
+-	"red",
+-	"green",
+-	"yellow",
+-	"#5c5cff",
+-	"magenta",
+-	"cyan",
+-	"white",
+-
+-	[255] = 0,
+-
+-	/* more colors can be added after 255 to use with DefaultXX */
+-	"#cccccc",
+-	"#555555",
++	[8]  = "#525252", /* black   */
++	[9]  = "#7c7c7c", /* red     */
++	[10] = "#8e8e8e", /* green   */
++	[11] = "#a0a0a0", /* yellow  */
++	[12] = "#686868", /* blue    */
++	[13] = "#747474", /* magenta */
++	[14] = "#868686", /* cyan    */
++	[15] = "#f7f7f7", /* white   */
+ };
+ 
+ 
+@@ -118,8 +112,8 @@ static const char *colorname[] = {
+  */
+ unsigned int defaultfg = 7;
+ unsigned int defaultbg = 0;
+-static unsigned int defaultcs = 256;
+-static unsigned int defaultrcs = 257;
++static unsigned int defaultcs = 7;
++static unsigned int defaultrcs = 0;
+ 
+ /*
+  * Default shape of cursor
+@@ -162,7 +156,7 @@ static MouseShortcut mshortcuts[] = {
+ 
+ /* Internal keyboard shortcuts. */
+ #define MODKEY Mod1Mask
+-#define TERMMOD (ControlMask|ShiftMask)
++#define TERMMOD (MODKEY|ShiftMask)
+ 
+ static Shortcut shortcuts[] = {
+ 	/* mask                 keysym          function        argument */
