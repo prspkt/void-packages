@@ -19,7 +19,7 @@ checksum=35442cc849f91f8df982c3d0d479d650c6ca19310a994eccdaa79a4af3916b7d
 system_accounts="transmission"
 transmission_homedir="/var/lib/transmission"
 make_dirs="/var/lib/transmission 0755 transmission transmission"
-subpackages="transmission-gtk"
+subpackages="transmission-cli transmission-gtk"
 
 if [ -z "$CROSS_BUILD" ]; then
 	makedepends+=" qt5-devel"
@@ -66,6 +66,17 @@ post_install() {
 	rm -f ${DESTDIR}/usr/share/${pkgname}/web/LICENSE
 	vsv transmission-daemon
 	vlicense COPYING
+}
+
+transmission-cli_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - CLI frontend"
+	provides="transmission-${version}_${revision}"
+	pkg_install() {
+		local app; for app in cli create edit remote show; do
+			vmove usr/bin/transmission-${app}
+		done
+	}
 }
 
 transmission-qt_package() {
